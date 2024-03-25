@@ -1,26 +1,20 @@
 <?php
 // Database connection parameters
-$servername = "127.0.0.1"; // Replace with your MySQL server name
-$username = "root"; // Replace with your MySQL username
-$password = ""; // Replace with your MySQL password
-$database = "incgrade"; // Replace with your MySQL database name
+$servername = "127.0.0.1"; 
+$username = "root"; 
+$password = ""; 
+$database = "incgrade"; 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
-if (isset($_POST['Login'])) {
-    $username = ($_POST['student_username']);
-}
 // Check connection
-/*if ($conn->connect_error) {
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}*/
+}
 
 // Function to authenticate user
 function authenticateUser($conn, $username, $password) {
-    // Sanitize input to prevent SQL injection
-    $username = $conn->real_escape_string($username);
-
     // Fetch user data from the database
     $sql = "SELECT Username, PasswordHash FROM Students WHERE Username='$username'";
     $result = $conn->query($sql);
@@ -45,18 +39,16 @@ function authenticateUser($conn, $username, $password) {
 }
 
 // Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Login'])) {
     // Get username and password from form submission
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = $_POST["student_username"];
+    $password = $_POST["student_password"];
 
     // Authenticate user
     if (authenticateUser($conn, $username, $password)) {
-        // Authentication successful, redirect to student dashboard or perform further actions
-        // For demonstration, we just echo a success message
+        // Authentication successful
         echo "Authentication successful. Welcome, $username!";
     } else {
-        // Authentication failed
         echo "Authentication failed. Invalid username or password.";
     }
 }
