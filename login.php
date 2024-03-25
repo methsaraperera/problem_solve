@@ -76,10 +76,10 @@
             <h2>Login</h2>
             <form action="connectstulogin.php" method="post">
                 <label for="student_username">Username:</label>
-                <input type="text" id="student_username" name="username">
+                <input type="text" id="student_username" name="student_username">
 
                 <label for="student_password">Password:</label>
-                <input type="password" id="student_password" name="password">
+                <input type="password" id="student_password" name="student_password">
 
                 <input type="submit" value="Login">
             </form>
